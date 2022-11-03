@@ -1,21 +1,23 @@
 
 var angleX = 180;
-
+var angleY = 180;
 var lastScreenX = 0;
+var lastScreenY = 0;
 var runOnce = true;
+
+var lastState = null;
 
 const mouseMoved = (e) =>{
 
 	var cubeArray = document.getElementsByClassName("cube");
 	var movX = e.screenX;
-	var movY = e.movementY;
+	var movY = e.screenY;
 	
 	if(runOnce){
 		lastScreenX = movX;
+		lastScreenY = movY;
 		runOnce = false;
 	}	
-	
-	var angleY = 0;
 
 	if( (movX < lastScreenX) /*&& ( lastScreenX - movX > 100)*/ ){
 
@@ -45,68 +47,97 @@ const mouseMoved = (e) =>{
 
 
 
-	// if(movY < 0 ){
-	// 	angleY +=180;
-	// 	for(let i = 0 ; i < cubeArray.length; i++){
-
-	// 		cubeArray[i].style.setProperty("--x", '-' +angleY +'deg');
-	// 	}
-		
-	// }
-	// else{
-
-	// 	// angleY +=180;
-	// 	for(let i = 0 ; i < cubeArray.length; i++){
-
-	// 		cubeArray[i].style.setProperty("--x", '-' +angleY +'deg');
-	// 	}
-	// }
-
 }
 
 
-const handleNavClick = () =>{
+const handleNavClick = (e) =>{
 
+
+	console.log(e);
+
+	var id = e.id;
 
 	var scene1 = document.getElementById('scene1');
 	var scene3 = document.getElementById('scene3');
-	scene1.style.animation="moveSceneLeft 2s linear forwards"
-	scene3.style.animation="moveSceneRight 2s linear forwards"
 
-	// scene1.style.transform = "translateX(157px)";
-	// scene3.style.transform = "translateX(-157px)";
-
-
-
-	var frontFaceArray = document.getElementsByClassName("cube__face--front");
+	// var frontFaceArray = document.getElementsByClassName("cube__face--front");
 	var backFaceArray = document.getElementsByClassName("cube__face--back");
 
-	for(let i = 0 ; i < frontFaceArray.length; i++ ){
+	var botFaceArray = document.getElementsByClassName("cube__face--bottom");
 
-		// frontFaceArray[i].style.animation = "lightFaceUp 6s linear forwards"
-		backFaceArray[i].style.animation = "lightFaceUp 1s linear 2s forwards"
+	if(id == 'About'){
 
-		if(i == 0){
-			// frontFaceArray[i].innerHTML = 'Hello';
-			backFaceArray[i].innerHTML = 'Portuguese creative developer';
-			
+		if(lastState == 'Gallery'){
+
+			for(let i = 0 ; i < botFaceArray.length ; i++){
+					
+				var delay = i;
+				botFaceArray[i].style.animation = "turnLightOff 2s ease-out forwards";
+
+			}
+
+			scene1.style.animation="moveSceneLeft 2s linear 2s forwards";
+			scene3.style.animation="moveSceneRight 2s linear 2s forwards";
+
+			for(let i = 0 ; i < backFaceArray.length; i++ ){
+				backFaceArray[i].style.animation = "lightFaceUp 4s linear 4s forwards"
+				var url = "url('img/About" + (i+1) + ".jpg')";
+				backFaceArray[i].style.setProperty('--about-img', url);
+			}
+
+
 		}
-		else if(i == 1){
-			// frontFaceArray[i].innerHTML = 'world';
-			backFaceArray[i].innerHTML = 'currently working as';
+		else{
+			scene1.style.animation="moveSceneLeft 2s linear forwards";
+			scene3.style.animation="moveSceneRight 2s linear forwards";
 
+			for(let i = 0 ; i < backFaceArray.length; i++ ){
+				backFaceArray[i].style.animation = "lightFaceUp 4s linear 2s forwards"
+				var url = "url('img/About" + (i+1) + ".jpg')";
+				backFaceArray[i].style.setProperty('--about-img', url);
+			}
 		}
-		else if(i == 2){
-			// frontFaceArray[i].innerHTML = 'Adeus';
-			backFaceArray[i].innerHTML = 'a full stack engineer';
-		}
-
 		
 
 		
 
+		
 
 	}
+	else if(id == 'Projects'){
+
+	}
+	else if(id == 'Gallery'){
+
+		var delayMin = 0;
+
+		if(lastState == 'About'){
+			scene1.style.animation="galleryMoveLeft 4s linear forwards";
+			scene3.style.animation="galleryMoveRight 4s linear forwards";	
+
+			for(let i = 0 ; i < backFaceArray.length; i++ ){
+			
+				backFaceArray[i].style.animation = "lightFaceDown 3s ease-out forwards"
+			}
+
+			delayMin = 4;
+		}
+		
+
+		
+
+		for(let i = 0 ; i < botFaceArray.length ; i++){
+
+				
+			var delay = delayMin + i;
+			botFaceArray[i].style.animation = "turnLightOn 1s ease-in " +delay +"s forwards";
+
+		}
+
+	}
+
+	lastState = id;
+	
 
 
 
