@@ -11,6 +11,7 @@ html,body{
 	overflow: scroll;
 	overflow-x: hidden;
 	scrollbar-width: none;
+	background-color: #121212;
 }
 
 body::-webkit-scrollbar{
@@ -397,30 +398,66 @@ body::-webkit-scrollbar{
 /***********************************/
 
 
+.galleryOuterContainer{
+	width: 100vw;
+	height: 55vh;	
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	opacity: 0;
+
+}
+
 .galleryContainer{
-	width: 100%;
-	height: 55vh;
-	overflow-y: scroll;
+	width: 55vh;
+	height: 100vw;
+	overflow-x: hidden;
+	overflow-y: auto;
 	scrollbar-width: none;
 	scroll-snap-type: y mandatory;
 	scroll-behavior: smooth;
+	display: flex;
+	flex-direction: column;
+	transform: rotate(-90deg) translateX(150%);
+  transform-origin: center;
 
 }
 
 .galleryItem{
-	width: 100%;
-	min-height: 55vh;
+	width: 55vh;
+	min-height: 100vw;
+	/*transform: rotate(90deg);*/
+  /*transform-origin: center;*/
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	
 }
 
 .galleryItem:nth-child(even){
 
-	background-color: darkred;
+	background-color: transparent;
 	scroll-snap-align: center;
 
 }
 
 .galleryItem:nth-child(odd){
 
-	background-color: darkcyan;
+	background-color: transparent;
 	scroll-snap-align: center;
+}
+
+.pic{
+	width: 400px;
+	height: 400px;
+	background-color: transparent;
+	/*color: white;*/
+	transform: rotate(90deg);
+	transform-origin: center;
+	background-image: url('img/pic1.jpg');
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+
 }

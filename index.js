@@ -60,6 +60,8 @@ const handleNavClick = (e) =>{
 	var scene1 = document.getElementById('scene1');
 	var scene3 = document.getElementById('scene3');
 
+	var galleryContainer = document.getElementById('galleryContainer');
+
 	// var frontFaceArray = document.getElementsByClassName("cube__face--front");
 	var backFaceArray = document.getElementsByClassName("cube__face--back");
 
@@ -69,6 +71,7 @@ const handleNavClick = (e) =>{
 
 		if(lastState == 'Gallery'){
 
+			galleryContainer.style.opacity = 0;
 			for(let i = 0 ; i < botFaceArray.length ; i++){
 					
 				var delay = i;
@@ -99,10 +102,6 @@ const handleNavClick = (e) =>{
 		}
 		
 
-		
-
-		
-
 	}
 	else if(id == 'Projects'){
 
@@ -110,7 +109,7 @@ const handleNavClick = (e) =>{
 	else if(id == 'Gallery'){
 
 		var delayMin = 0;
-
+		galleryContainer.style.opacity = 1;
 		if(lastState == 'About'){
 			scene1.style.animation="galleryMoveLeft 4s linear forwards";
 			scene3.style.animation="galleryMoveRight 4s linear forwards";	
